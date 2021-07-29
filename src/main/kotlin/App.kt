@@ -4,24 +4,16 @@ import react.*
 import react.dom.*
 import styled.*
 
-// Changes number of teams
-fun RowNumbers(): Int {
-    var numbers: Int = 6
-    return numbers;
-}
-// Changes numbers of problem sets
-fun ProblemSetNumbers(): Int {
-    var numbers: Int = 5
-    return numbers;
-}
-// Changes names of teams
-// Must be the same number of teams
-fun TeamNames(): Array<String> {
-    val NameOfteams = arrayOf<String>("Team1","Team2","Team3","Team4","Team5")
+fun TeamNames(): Array<Array<String>> {
+    val NameOfteams = arrayOf(
+        arrayOf("Team 1", "1a", "2a", "3a", "4a","5a"),
+        arrayOf("Team 2", "1b", "2b", "3b", "4b","5b"),
+        arrayOf("Team 3", "1c", "2c", "3c", "4c","5c"),
+        arrayOf("Team 4", "1d", "2d", "3d", "4d","5d"),
+        arrayOf("Team 5", "1e", "2e", "3e", "4e","5e"),
+    )
     return NameOfteams
 }
-// Changes names of problem sets
-// Must be the same number of problem sets
 fun ProblemSetNames(): Array<String> {
     val NameOfProblemSet = arrayOf<String>("ProblemSet1","ProblemSet2","ProblemSet3","ProblemSet4","ProblemSet5")
     return NameOfProblemSet
@@ -30,32 +22,39 @@ fun ProblemSetNames(): Array<String> {
 @JsExport
 class App : RComponent<RProps, RState>() {
     override fun RBuilder.render() {
+        styledH1 {
+            css {
+                color = Color.red
+            }
+        }
+
         h1 {
-            +"Leader Board"
+            +"Leader board"
         }
         table {
             tr {
                 th {
                     +"Team Name"
                 }
-                for(i in 0..ProblemSetNames().size){
+                for(i in 0..ProblemSetNames().size-1){
                     th{
                         +ProblemSetNames()[i]
+//                        +"ProblemSetName"
                     }
                 }
 
             }
         }
-        var numberOfRows: Int = RowNumbers()
-        var numberOfProblemSets: Int = ProblemSetNumbers()
-        for(i in 1..numberOfRows-1){
+        for(i in 0..TeamNames().size-1){
             tr {
                 th {
-                    +TeamNames()[i-1]
+                    +TeamNames()[i][0]
+//                    +"TeamName"
                 }
-                for (i in 1..numberOfProblemSets){
+                for (j in 1..ProblemSetNames().size){
                     td {
-                        +"Red"
+                        +TeamNames()[i][j]
+//                        +"Color"
                     }
                 }
             }
